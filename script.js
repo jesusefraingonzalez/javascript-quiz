@@ -39,23 +39,30 @@ startBtn.addEventListener("click", function (event) {
     title.remove();
     instructions.remove();
     startBtn.remove();
-    // var newEl = document.createElement("h3");
-    // newEl.textContent = "Hello world!";
-    // document.body.appendChild(newEl);
 
     renderQuestion(questions[1]);
 })
 
 function renderQuestion(questionObj) {
+    //create and display question element
     var currentQuestion = document.createElement("h3");
     currentQuestion.textContent = questionObj.question;
     document.body.appendChild(currentQuestion);
 
+    //create an unordered list to hold answers
     var answerList = document.createElement("ul");
-    questionObj.answers.forEach(function(answer){
-        var ansEl = document.createElement("li");
-        ansEl.textContent = answer;
-        document.answerList.appendChild(ansEl);
+    var ansEl; //will hold list items
+    var buttonEl = document.createElement("button");
+
+    //add ul to dom
+    document.body.appendChild(answerList);
+
+    questionObj.answers.forEach(function (answer) {
+        ansEl = document.createElement("li");
+        buttonEl = document.createElement("button");
+        buttonEl.textContent = answer;
+        ansEl.appendChild(buttonEl);
+        answerList.appendChild(ansEl);
     })
 }
 
