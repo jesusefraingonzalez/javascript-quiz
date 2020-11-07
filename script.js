@@ -1,3 +1,4 @@
+//global variables
 var questions = [
     {
         question: "Commonly used data types do not include:",
@@ -41,8 +42,11 @@ startBtn.addEventListener("click", function (event) {
     startBtn.remove();
 
     renderQuestion(questions[1]);
+
+
 })
 
+//renders the question on the page
 function renderQuestion(questionObj) {
     //create and display question element
     var currentQuestion = document.createElement("h3");
@@ -58,11 +62,24 @@ function renderQuestion(questionObj) {
     document.body.appendChild(answerList);
 
     questionObj.answers.forEach(function (answer) {
+        //create buttons and add to dom
         ansEl = document.createElement("li");
         buttonEl = document.createElement("button");
         buttonEl.textContent = answer;
+        //add event listeners to the buttons
         ansEl.appendChild(buttonEl);
         answerList.appendChild(ansEl);
+        // function (answer) { alert("button is pressed")
+        buttonEl.addEventListener("click", function() {isCorrect(questionObj, answer)});
     })
+    
 }
 
+//check to see if the selected answer is correct
+function isCorrect(questionObj, selectedAnswer) {
+    if (selectedAnswer === questionObj.correct) {
+        alert("correct answer");
+        score++;
+    }
+    else { alert("WRONG") }
+}
