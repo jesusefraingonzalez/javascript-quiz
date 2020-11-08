@@ -34,7 +34,8 @@ var questions = [
 var title = document.getElementById("starting-h1");
 var instructions = document.getElementById("instructions")
 var startBtn = document.getElementById("start-button");
-var userScore = document.getElementById("answer-template");
+var answerDiv = document.getElementById("answer-template");
+var userScore = document.getElementById("user-score");
 var score = 0;
 var currentQuestion = 0;
 var timeLeft = 300; //time in seconds
@@ -57,6 +58,7 @@ startBtn.addEventListener("click", function (event) {
     //once question is answered remove that question from the dom. render next question
 
 
+    // timer
     var intervalId = setInterval(function () {
         minutes = Math.floor(timeLeft / (60));
         seconds = Math.floor(timeLeft % 60);
@@ -70,7 +72,6 @@ startBtn.addEventListener("click", function (event) {
         console.log(timeLeft);
         if (timeLeft <= 0) {
             clearInterval(intervalId);
-            alert("Time is up!")
         }
     }, 1000);
     questionLogic(currentQuestion);
@@ -115,10 +116,10 @@ function questionLogic() {
             if (currentQuestion >= questions.length) {
                 console.log("questions over");
                 timeLeft = 0;
-                 //hide question template
+                //hide question template
                 document.getElementById("question-template").className = "hide";
                 //show submit score
-                userScore.className = "";
+                answerDiv.className = "";
                 userScore.innerHTML = "Your Score: " + score;
             }
             else {
@@ -126,6 +127,7 @@ function questionLogic() {
             }
         });
     });
+
     //make first child of ql visible once question is answered
     //when the user answers the question then check if the answer is correct
     //checks if the question has already been answered
