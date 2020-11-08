@@ -34,13 +34,16 @@ var questions = [
 var title = document.getElementById("starting-h1");
 var instructions = document.getElementById("instructions")
 var startBtn = document.getElementById("start-button");
+var userScore = document.getElementById("answer-template");
 var score = 0;
 var currentQuestion = 0;
-var timeLeft = 600 * 1000; //time in milliseconds
+var timeLeft = 300; //time in seconds
 var timer = document.getElementById("timer");
-var minutes = Math.floor(timeLeft / (60 * 1000));
+var minutes = Math.floor(timeLeft / (60));
 var seconds = Math.floor(timeLeft % 60);
-timer.innerHTML = minutes + ":0" + seconds;
+if (seconds < 10) timer.innerHTML = minutes + ":0" + seconds;
+else timer.innerHTML = minutes + ":" + seconds;
+
 // var questionAnswered = false;
 
 startBtn.addEventListener("click", function (event) {
@@ -52,25 +55,24 @@ startBtn.addEventListener("click", function (event) {
     //show question elements in dom
     //if question is answered correctly, add to score
     //once question is answered remove that question from the dom. render next question
-   
+
 
     var intervalId = setInterval(function () {
-        minutes = Math.floor(timeLeft / (60 * 1000));
+        minutes = Math.floor(timeLeft / (60));
         seconds = Math.floor(timeLeft % 60);
         if (seconds < 10) {
             timer.innerHTML = minutes + ":0" + seconds;
         }
         else {
-            timer.innerHTML = "0" + minutes + ":" + seconds;
+            timer.innerHTML = minutes + ":" + seconds;
         }
         timeLeft--;
+        console.log(timeLeft);
         if (timeLeft <= 0) {
             clearInterval(intervalId);
             alert("Time is up!")
         }
     }, 1000);
-
-    
     questionLogic(currentQuestion);
 
 
@@ -99,26 +101,29 @@ function questionLogic() {
         buttonEl.addEventListener("click", function () {
             if (element === questionObj.correct) {
                 score++;
+
             }
             else {
                 // todo handle wrong answers decrement time
-                timeLeft -= 10;
+                if (timeLeft > 10) timeLeft -= 10;
+                else timeLeft = 0;
             }
 
             console.log(score);
 
             currentQuestion++;
-            if (currentQuestion > questions.length) {
+            if (currentQuestion >= questions.length) {
                 console.log("questions over");
-                document.getElementById("question-template").class = "hide";
-                //hide entire question
-                //todo show submit score
-                //hide question template
+                timeLeft = 0;
+                 //hide question template
+                document.getElementById("question-template").className = "hide";
+                //show submit score
+                userScore.className = "";
+                userScore.innerHTML = "Your Score: " + score;
             }
             else {
                 questionLogic();
             }
-
         });
     });
     //make first child of ql visible once question is answered
