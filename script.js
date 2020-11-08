@@ -35,7 +35,11 @@ var title = document.getElementById("starting-h1");
 var instructions = document.getElementById("instructions")
 var startBtn = document.getElementById("start-button");
 var score = 0;
-var questionAnswered = false;
+var currentQuestion = 0;
+var time = 10;
+var minutes = 10;
+var seconds = 10*60;
+// var questionAnswered = false;
 
 startBtn.addEventListener("click", function (event) {
     //remove starting elements from dom once start button is clicked
@@ -47,62 +51,73 @@ startBtn.addEventListener("click", function (event) {
     //if question is answered correctly, add to score
     //once question is answered remove that question from the dom. render next question
 
-    questions.forEach(function (question) { questionLogic(question) });
+    var intervalId = setInterval(function () {
+        var timerMin = document.getElementById("minutes");
+        var timerSec = document.getElementById("seconds");
+        timerMin.innerHTML = minutes;
+        timerSec.innerHTML = seconds;
+        // questionLogic(currentQuestion);
+        seconds--;
+        if(seconds == 0) clearInterval(intervalId);
+    }, 1000);
+    
+
 
 
 })
+function questionLogic() {
 
-//renders the question on the page and checks if the answer is correct
-function questionLogic(questionObj) {
-    //create and display question element
-    var currentQuestion = document.createElement("h3");
-    currentQuestion.textContent = questionObj.question;
-    document.body.appendChild(currentQuestion);
-
-    //create an unordered list to hold answers
-    var answerListEl = document.createElement("ul");
-    var ansEl; //will hold list items
-    var buttonEl = document.createElement("button");
-
-    //add ul to dom
-    document.body.appendChild(answerListEl);
-
-    questionObj.answers.forEach(function (answer) {
-        //create buttons and add to dom
-        questionAnswered = false;
-        ansEl = document.createElement("li");
-        buttonEl = document.createElement("button");
-        buttonEl.textContent = answer;
+    //show question in dom
+    var questionObj = questions[currentQuestion];
+    var currentQuestionTitle = document.getElementById("question-title");
+    currentQuestionTitle.textContent = questionObj.question;
+    //show available answers in dom
+    //create answerListEl ul
+    var answerListEl = document.getElementById("answer-list");
+    // var ansEl;
+    // var buttonEl;
+    // document.body.appendChild(answerListEl);
+    answerListEl.innerHTML = "";
+    // adds each answer to the dom as a button and adds a click handler
+    questionObj.answers.forEach(function (element) {
+        var ansEl = document.createElement("li");
+        var buttonEl = document.createElement("button");
+        buttonEl.textContent = element;
         ansEl.appendChild(buttonEl);
         answerListEl.appendChild(ansEl);
 
-
-        // if button is pressed, isCorrect checks to see if the answer is correct
-
         buttonEl.addEventListener("click", function () {
-            while (!questionAnswered) {
-                if (answer === questionObj.correct) {
-                    score++;
-                }
-                console.log(score);
-                // console.log(questionAnswered);
-                questionAnswered = true;
-                // console.log(questionAnswered);
-                if (questionAnswered) {
-                    answerListEl.remove();
-                    currentQuestion.remove();
-                }
+            if (element === questionObj.correct) {
+                score++;
             }
+            else {
+                // todo handle wrong answers decrement time
+                seconds -= 10;
+            }
+            // questionAnswered = true;
+            console.log(score);
+            // currentQuestionEl.remove();
+            currentQuestion++;
+            if (currentQuestion > questions.length) {
+                console.log("questions over");
+                clearInterval(intervalId);
+                document.body.getElementById("question-template").class = "hide";
+                //hide entire question
+                //todo show submit score
+                //hide question template
+            }
+            else {
+                questionLogic();
+            }
+
         });
     });
-}
+    //make first child of ql visible once question is answered
+    //when the user answers the question then check if the answer is correct
+    //checks if the question has already been answered
 
-//check to see if the selected answer is correct
-function isCorrect(questionObj, selectedAnswer) {
-    if (selectedAnswer === questionObj.correct) {
-        alert("correct answer");
-        score++;
-    }
-    else { alert("WRONG") }
-    console.log(score);
+
+
+    //if the question is answered correctly, add to score
+    //when the user clicks on an answer, remove that question from the dom
 }
