@@ -20,11 +20,11 @@ var questions = [
         answers: ["commas", "curly brackets", "quotes", "parentheses"],
         correct: "quotes"
     },
-    {
-        question: "",
-        answers: ["", "", "", ""],
-        correct: ""
-    },
+    // {
+    //     question: "",
+    //     answers: ["", "", "", ""],
+    //     correct: ""
+    // },
     // {
     //     question: "",
     //     answers: ["", "", "", ""],
@@ -35,44 +35,66 @@ var title = document.getElementById("starting-h1");
 var instructions = document.getElementById("instructions")
 var startBtn = document.getElementById("start-button");
 var score = 0;
+var questionAnswered = false;
 
 startBtn.addEventListener("click", function (event) {
+    //remove starting elements from dom once start button is clicked
     title.remove();
     instructions.remove();
     startBtn.remove();
 
-    renderQuestion(questions[1]);
+    //show question elements in dom
+    //if question is answered correctly, add to score
+    //once question is answered remove that question from the dom. render next question
+
+    questions.forEach(function (question) { questionLogic(question) });
 
 
 })
 
-//renders the question on the page
-function renderQuestion(questionObj) {
+//renders the question on the page and checks if the answer is correct
+function questionLogic(questionObj) {
     //create and display question element
     var currentQuestion = document.createElement("h3");
     currentQuestion.textContent = questionObj.question;
     document.body.appendChild(currentQuestion);
 
     //create an unordered list to hold answers
-    var answerList = document.createElement("ul");
+    var answerListEl = document.createElement("ul");
     var ansEl; //will hold list items
     var buttonEl = document.createElement("button");
 
     //add ul to dom
-    document.body.appendChild(answerList);
+    document.body.appendChild(answerListEl);
 
     questionObj.answers.forEach(function (answer) {
         //create buttons and add to dom
+        questionAnswered = false;
         ansEl = document.createElement("li");
         buttonEl = document.createElement("button");
         buttonEl.textContent = answer;
-        //add event listeners to the buttons
         ansEl.appendChild(buttonEl);
-        answerList.appendChild(ansEl);
-        // function (answer) { alert("button is pressed")
-        buttonEl.addEventListener("click", function() {isCorrect(questionObj, answer)});
-    })
-    
+        answerListEl.appendChild(ansEl);
+
+
+        // if button is pressed, isCorrect checks to see if the answer is correct
+
+        buttonEl.addEventListener("click", function () {
+            while (!questionAnswered) {
+                if (answer === questionObj.correct) {
+                    score++;
+                }
+                console.log(score);
+                // console.log(questionAnswered);
+                questionAnswered = true;
+                // console.log(questionAnswered);
+                if (questionAnswered) {
+                    answerListEl.remove();
+                    currentQuestion.remove();
+                }
+            }
+        });
+    });
 }
 
 //check to see if the selected answer is correct
@@ -82,4 +104,5 @@ function isCorrect(questionObj, selectedAnswer) {
         score++;
     }
     else { alert("WRONG") }
+    console.log(score);
 }
