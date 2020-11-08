@@ -9,11 +9,37 @@
 </head>
 
 <body>
-    <h1 id="starting-h1">Javascript Quiz</h1>
-    <p id="instructions">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores quaerat aspernatur aliquid ipsam! Rerum quod
-        ipsam, quia nostrum amet similique tenetur eaque vero, labore perferendis, explicabo sint odio placeat earum?
-    </p>
-    <button id="start-button">Start!</button>
+    <!-- timer div -->
+    <div id="timer-div">
+        <h4 id="timer"></h4>
+    </div>
+
+    <!-- hide class to display none to hide -->
+    <div id="introduction">
+        <h1 id="starting-h1">Javascript Quiz</h1>
+        <p id="instructions">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores quaerat aspernatur
+            aliquid
+            ipsam! Rerum quod
+            ipsam, quia nostrum amet similique tenetur eaque vero, labore perferendis, explicabo sint odio placeat
+            earum?
+        </p>
+        <button id="start-button">Start!</button>
+    </div>
+
+    <!-- make question template holder and swap in content -->
+    <div id="question-template">
+        <h3 id="question-title"></h3>
+        <ul id="answer-list">
+            <!-- create empty list after each question -->
+        </ul>
+    </div>
+
+    <!-- answers template -->
+    <div id="answer-template" class="hide">
+        <h2 id="user-score"></h2>
+    </div>
+    
+    <!-- script file -->
     <script src="script.js"></script>
 </body>
 
