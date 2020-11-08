@@ -36,7 +36,11 @@ var instructions = document.getElementById("instructions")
 var startBtn = document.getElementById("start-button");
 var score = 0;
 var currentQuestion = 0;
-var timeLeft = 60 * 1000; //time in milliseconds
+var timeLeft = 600 * 1000; //time in milliseconds
+var timer = document.getElementById("timer");
+var minutes = Math.floor(timeLeft / (60 * 1000));
+var seconds = Math.floor(timeLeft % 60);
+timer.innerHTML = minutes + ":0" + seconds;
 // var questionAnswered = false;
 
 startBtn.addEventListener("click", function (event) {
@@ -48,20 +52,26 @@ startBtn.addEventListener("click", function (event) {
     //show question elements in dom
     //if question is answered correctly, add to score
     //once question is answered remove that question from the dom. render next question
+   
 
     var intervalId = setInterval(function () {
-        var timer = document.getElementById("timer");
-        var minutes = Math.floor(timeLeft / (60*1000));
-        var seconds = Math.floor(timeLeft % 60);
-        timer.innerHTML = minutes + ":" + seconds;
-
-        // questionLogic(currentQuestion);
-        
+        minutes = Math.floor(timeLeft / (60 * 1000));
+        seconds = Math.floor(timeLeft % 60);
+        if (seconds < 10) {
+            timer.innerHTML = minutes + ":0" + seconds;
+        }
+        else {
+            timer.innerHTML = "0" + minutes + ":" + seconds;
+        }
         timeLeft--;
-        if(timeLeft == 0) clearInterval(intervalId);
+        if (timeLeft <= 0) {
+            clearInterval(intervalId);
+            alert("Time is up!")
+        }
     }, 1000);
-    
 
+    
+    questionLogic(currentQuestion);
 
 
 })
@@ -92,16 +102,15 @@ function questionLogic() {
             }
             else {
                 // todo handle wrong answers decrement time
-                seconds -= 10;
+                timeLeft -= 10;
             }
-            // questionAnswered = true;
+
             console.log(score);
-            // currentQuestionEl.remove();
+
             currentQuestion++;
             if (currentQuestion > questions.length) {
                 console.log("questions over");
-                clearInterval(intervalId);
-                document.body.getElementById("question-template").class = "hide";
+                document.getElementById("question-template").class = "hide";
                 //hide entire question
                 //todo show submit score
                 //hide question template
