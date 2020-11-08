@@ -36,9 +36,7 @@ var instructions = document.getElementById("instructions")
 var startBtn = document.getElementById("start-button");
 var score = 0;
 var currentQuestion = 0;
-var time = 10;
-var minutes = 10;
-var seconds = 10*60;
+var timeLeft = 60 * 1000; //time in milliseconds
 // var questionAnswered = false;
 
 startBtn.addEventListener("click", function (event) {
@@ -52,13 +50,15 @@ startBtn.addEventListener("click", function (event) {
     //once question is answered remove that question from the dom. render next question
 
     var intervalId = setInterval(function () {
-        var timerMin = document.getElementById("minutes");
-        var timerSec = document.getElementById("seconds");
-        timerMin.innerHTML = minutes;
-        timerSec.innerHTML = seconds;
+        var timer = document.getElementById("timer");
+        var minutes = Math.floor(timeLeft / (60*1000));
+        var seconds = Math.floor(timeLeft % 60);
+        timer.innerHTML = minutes + ":" + seconds;
+
         // questionLogic(currentQuestion);
-        seconds--;
-        if(seconds == 0) clearInterval(intervalId);
+        
+        timeLeft--;
+        if(timeLeft == 0) clearInterval(intervalId);
     }, 1000);
     
 
