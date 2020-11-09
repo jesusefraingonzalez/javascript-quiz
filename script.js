@@ -49,11 +49,11 @@ else timer.innerHTML = minutes + ":" + seconds;
 
 startBtn.addEventListener("click", function (event) {
     //remove starting elements from dom once start button is clicked
-    title.remove();
-    instructions.remove();
-    startBtn.remove();
+    var introduction = document.getElementById("introduction");
+    introduction.remove();
 
     //show question elements in dom
+    document.getElementById("question-template").className="card";
     //if question is answered correctly, add to score
     //once question is answered remove that question from the dom. render next question
 
@@ -76,11 +76,20 @@ startBtn.addEventListener("click", function (event) {
     }, 1000);
     questionLogic(currentQuestion);
 
+    document.getElementById("input-initials").className = "";
+    var inputBox = document.getElementById("input-box");
+     var submitButton = document.getElementById("submit-button");
 
+    submitButton.addEventListener("click", function(){
+        localStorage.setItem(inputBox.value , score);
+    });
 })
+
+
 function questionLogic() {
 
     //show question in dom
+    
     var questionObj = questions[currentQuestion];
     var currentQuestionTitle = document.getElementById("question-title");
     currentQuestionTitle.textContent = questionObj.question;
@@ -119,7 +128,7 @@ function questionLogic() {
                 //hide question template
                 document.getElementById("question-template").className = "hide";
                 //show submit score
-                answerDiv.className = "";
+                answerDiv.className = "card";
                 userScore.innerHTML = "Your Score: " + score;
             }
             else {
