@@ -35,7 +35,7 @@ var title = document.getElementById("starting-h1");
 var instructions = document.getElementById("instructions")
 var startBtn = document.getElementById("start-button");
 var answerDiv = document.getElementById("answer-template");
-var userScore = document.getElementById("user-score");
+var userScoreEl = document.getElementById("user-score");
 var score = 0;
 var currentQuestion = 0;
 var timeLeft = 300; //time in seconds
@@ -159,7 +159,7 @@ function questionLogic() {
                 document.getElementById("question-template").className = "hide";
                 //show submit score
                 answerDiv.className = "card";
-                userScore.innerHTML = "Your Score: " + score;
+                userScoreEl.innerHTML = "Your Score: " + score;
             }
             else {
                 questionLogic();
