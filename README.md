@@ -6,7 +6,8 @@ A quiz to test a users knowlege in javascript and related coding questions.
 1. Click on the start button to begin quiz
 2. Answer the questions to the best of your ability
 3. Enter your initials at the end of the quiz if you wish to store your score.
-* click on the high score button in the top right corner to view the stored scores.
+* click on the high score button in the top right corner to view the stored scores
+* do not use enter key to enter high score, please click on the button
 
 ## Design
 Simple card layout. Start button begins the timer and begins to show the questions one by one. At the end of the questions or time, an option to add your score to a high score list is presented. Your initials and score are stored in local storage. 
@@ -35,6 +36,7 @@ Simple card layout. Start button begins the timer and begins to show the questio
 # todo
 * fix high score button to work on all screens
 * sort high scores to show the top scores
+* add enter key functionality to enter high scores
 * make the site more aesthetically pleasing
 * clean up the code
     * use variables for DOM elements when possible and useful
