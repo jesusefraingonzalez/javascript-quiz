@@ -1,3 +1,42 @@
+
+
+ul{
+    list-style-type: none;
+}
+
+button{
+    background-color: dodgerblue;
+    margin: 0;
+    position: relative;
+    left: 45%;
+    size: 200px;
+    margin: 5px;
+    border-radius: 15px;
+    
+}
+input{
+    /* margin: auto;
+    width: 50%; */
+}
+
+h1, h2, h3, h4, p{
+    text-align: center;
+    margin: 10px;
+}
+
+#timer-div{
+    float:left;
+ }
+
+.card{
+    clear: both;
+    margin: auto; 
+    max-width: 500px;
+    min-height: 200px;
+    background-color:lightgray;
+    border-radius: 15px;
+}
+
 .hide{
     display: none;
 }
