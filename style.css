@@ -7,16 +7,21 @@ ul{
 button{
     background-color: dodgerblue;
     margin: 0;
-    position: relative;
-    left: 45%;
+    float: left;
+    clear: left;
     size: 200px;
     margin: 5px;
     border-radius: 15px;
-    
 }
+
+#start-button{
+    position: relative;
+    left: 45%;
+}
+
 input{
-    /* margin: auto;
-    width: 50%; */
+    position: relative;
+    left: 30%;
 }
 
 h1, h2, h3, h4, p{
@@ -27,6 +32,10 @@ h1, h2, h3, h4, p{
 #timer-div{
     float:left;
  }
+
+#hs-link{
+    float: right;
+}
 
 .card{
     clear: both;
