@@ -53,7 +53,7 @@ startBtn.addEventListener("click", function (event) {
     introduction.remove();
 
     //show question elements in dom
-    document.getElementById("question-template").className="card";
+    document.getElementById("question-template").className = "card";
     //if question is answered correctly, add to score
     //once question is answered remove that question from the dom. render next question
 
@@ -78,10 +78,21 @@ startBtn.addEventListener("click", function (event) {
 
     document.getElementById("input-initials").className = "";
     var inputBox = document.getElementById("input-box");
-     var submitButton = document.getElementById("submit-button");
+    var submitButton = document.getElementById("submit-button");
 
-    submitButton.addEventListener("click", function(){
-        localStorage.setItem(inputBox.value , score);
+    submitButton.addEventListener("click", function () {
+        localStorage.setItem(inputBox.value, score);
+        document.getElementById("answer-template").className = "hide";
+        document.getElementById("high-scores-div").className = "card";
+        var scoreList = document.getElementById("high-scores");
+        
+        for (var i = 0; i < localStorage.length; i++) {
+            var key = localStorage.key(i);
+            var value = localStorage.getItem(key);
+            var newLi = document.createElement("li");
+            newLi.innerHTML = key + "    -    " + value;
+            scoreList.appendChild(newLi);
+        }
     });
 })
 
@@ -89,7 +100,7 @@ startBtn.addEventListener("click", function (event) {
 function questionLogic() {
 
     //show question in dom
-    
+
     var questionObj = questions[currentQuestion];
     var currentQuestionTitle = document.getElementById("question-title");
     currentQuestionTitle.textContent = questionObj.question;
