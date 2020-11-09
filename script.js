@@ -74,6 +74,9 @@ startBtn.addEventListener("click", function (event) {
             clearInterval(intervalId);
         }
     }, 1000);
+
+
+
     questionLogic(currentQuestion);
 
     document.getElementById("input-initials").className = "";
@@ -84,18 +87,34 @@ startBtn.addEventListener("click", function (event) {
         localStorage.setItem(inputBox.value, score);
         document.getElementById("answer-template").className = "hide";
         document.getElementById("high-scores-div").className = "card";
-        var scoreList = document.getElementById("high-scores");
-        
-        for (var i = 0; i < localStorage.length; i++) {
-            var key = localStorage.key(i);
-            var value = localStorage.getItem(key);
-            var newLi = document.createElement("li");
-            newLi.innerHTML = key + "    -    " + value;
-            scoreList.appendChild(newLi);
-        }
+        scoreList = document.getElementById("high-scores");
+
+        showHighScores();
+
     });
+
+
 })
 
+var highScoreButton = document.getElementById("hs-link");
+highScoreButton.addEventListener("click", function () {
+    introduction.className = "hide";
+    document.getElementById("question-template").className = "hide";
+    answerDiv.className = "hide";
+    document.getElementById("high-scores-div").className = "card";
+    showHighScores();
+});
+
+function showHighScores() {
+    var scoreList = document.getElementById("high-scores");
+    for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        var value = localStorage.getItem(key);
+        var newLi = document.createElement("li");
+        newLi.innerHTML = key + "    -    " + value;
+        scoreList.appendChild(newLi);
+    }
+}
 
 function questionLogic() {
 

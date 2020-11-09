@@ -13,18 +13,18 @@
     <div id="timer-div">
         <h4 id="timer"></h4>
     </div>
+    <div id="hs-link">
+        <p>View High Scores</p>
+    </div>
     <br>
 
     <!-- hide class to display none to hide -->
     <div id="introduction" class="card">
         <h1 id="starting-h1">Javascript Quiz</h1>
-        <p id="instructions">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores quaerat aspernatur
-            aliquid
-            ipsam! Rerum quod
-            ipsam, quia nostrum amet similique tenetur eaque vero, labore perferendis, explicabo sint odio placeat
-            earum?
+        <p id="instructions">Try to answer the following questions within the given time limit. Incorrect answers will
+            result in a ten second penalty.
         </p>
-        <button id="start-button" >Start!</button>
+        <button id="start-button">Start!</button>
     </div>
 
     <!-- make question template holder and swap in content -->
@@ -39,11 +39,11 @@
     <div id="answer-template" class="hide">
         <h1>Time is up!</h1>
         <h2 id="user-score"></h2>
-        <br> 
-        <form id="input-initials" class="hide">
+        <br>
+        <form id="input-initials">
             <h2>Enter your initials!</h2>
-            <input id="input-box" type="text"/>
-            <input id="submit-button" type="button" value="Submit"/>
+            <input id="input-box" type="text" />
+            <input id="submit-button" type="button" value="Submit" />
         </form>
     </div>
 
@@ -54,8 +54,6 @@
             <!-- dynamically create list items w local storage -->
         </ol>
     </div>
-
-
 
     <!-- script file -->
     <script src="script.js"></script>
